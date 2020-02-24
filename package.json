@@ -1,0 +1,11 @@
+{
+  "name": "arena-arkdes",
+  "version": "1.0.0",
+  "description": "Collaboration between Are.na and ArkDes for WEIRD SENSATION FEELS GOOD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Charles Broskoski <broskoski@gmail.com>",
+  "license": "MIT"
+}
