@@ -47,6 +47,8 @@ app.get("/api/policy", (req, res) => {
 });
 
 app.post("/api/create", (req, res) => {
+  console.log("res", res.body);
+
   axios({
     url: "https://api.are.na/graphql",
     method: "post",
@@ -60,7 +62,7 @@ app.post("/api/create", (req, res) => {
         input: {
           title: req.body.title,
           channel_ids: [CHANNEL_ID],
-          value: req.body.url,
+          value: req.body.content,
           description: req.body.description
         }
       }

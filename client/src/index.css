@@ -1,10 +1,25 @@
+@font-face {
+  font-family: "NeueHaasUnica";
+  src: url("./assets/NeueHaasUnicaPro-Regular.woff") format("woff"),
+    url("./assets/NeueHaasUnicaPro-Regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NeueHaasUnicaBold";
+  src: url("./assets/NeueHaasUnicaPro-Bold.woff") format("woff"),
+    url("./assets/NeueHaasUnicaPro-Bold.woff2") format("woff2");
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  /* font-family: "NeueHaasUnica", -apple-system, BlinkMacSystemFont, "Arial",
+    sans-serif; */
+  font-family: "NeueHaasUnica", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ccc;
 }
 
 * {
