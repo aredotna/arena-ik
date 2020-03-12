@@ -12,11 +12,15 @@
     url("./assets/NeueHaasUnicaPro-Bold.woff2") format("woff2");
 }
 
+@font-face {
+  font-family: "SometimesTimes";
+  src: url("./assets/SometimesTimes-Regular.woff") format("woff"),
+    url("./assets/SometimesTimes-Regular.woff2") format("woff2");
+}
+
 body {
   margin: 0;
-  /* font-family: "NeueHaasUnica", -apple-system, BlinkMacSystemFont, "Arial",
-    sans-serif; */
-  font-family: "NeueHaasUnica", serif;
+  font-family: "NeueHaasUnica", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #ccc;
