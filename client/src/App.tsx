@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import useAxios from "axios-hooks";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,7 @@ import client from "apollo/index";
 import { FeelingArchive } from "components/FeelingArchive";
 
 const Container = styled.div`
-  max-width: 55em;
+  max-width: 5em;
   margin: 0 auto;
   text-align: center;
   padding: 0 1em;
