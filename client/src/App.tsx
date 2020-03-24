@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import useAxios from "axios-hooks";
 import { useForm } from "react-hook-form";
@@ -8,7 +8,7 @@ import client from "apollo/index";
 import { FeelingArchive } from "components/FeelingArchive";
 
 const Container = styled.div`
-  max-width: 60em;
+  max-width: 55em;
   margin: 0 auto;
   text-align: center;
   padding: 0 1em;
@@ -35,7 +35,7 @@ const Definition = styled.div`
 
 const Question = styled.div`
   font-size: 2em;
-  font-weight: bold;
+  font-family: "NeueHaasUnicaBold", sans-serif;
   padding: 1em 0 0;
 `;
 
@@ -61,6 +61,7 @@ const Textarea = styled.input.attrs({ type: "text", autocomplete: "no" })`
   border-radius: 40em;
   border-top-color: transparent;
   border-bottom-color: transparent;
+  font-family: "NeueHaasUnica";
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
@@ -77,6 +78,7 @@ const Button = styled.input.attrs({ type: "submit" })`
   border: 2px solid black;
   cursor: pointer;
   transition: background-color 0.5s ease, border-color 0.5s ease;
+  font-family: "NeueHaasUnica";
 
   &:hover {
     background-color: white;
@@ -89,9 +91,9 @@ type FormData = {
 };
 
 const App: React.FC = () => {
-  const [mode, setMode] = useState<
-    "resting" | "details" | "saving" | "saved" | "error"
-  >("resting");
+  const [mode, setMode] = useState<"resting" | "saving" | "saved" | "error">(
+    "resting"
+  );
 
   const [, addBlock] = useAxios(
     {
@@ -128,12 +130,12 @@ const App: React.FC = () => {
         <DefinitionContainer>
           <Definition>
             <p>
-              <strong>Trigger</strong>
+              <strong>What is a trigger?</strong>
             </p>
 
             <p>
-              A sound or action that instils in you an Autonomous Sensory
-              Meridian Response (ASMR).
+              A sound or action that instils an Autonomous Sensory Meridian
+              Response (ASMR).
             </p>
 
             <p>
@@ -143,7 +145,7 @@ const App: React.FC = () => {
           </Definition>
           <Definition>
             <p>
-              <strong>Trigger</strong>
+              <strong>Vad är en trigger?</strong>
             </p>
 
             <p>
@@ -165,14 +167,20 @@ const App: React.FC = () => {
             name="content"
             ref={register({ required: true, maxLength: 20 })}
             autoComplete="no"
-            placeholder="Type something..."
+            placeholder={
+              {
+                resting: "Type something...",
+                saving: "Saving...",
+                error: "Error!",
+                saved: "Submitted!"
+              }[mode]
+            }
           />
           <Button
             disabled={mode !== "resting"}
             value={
               {
                 resting: "Submit",
-                details: "Submit",
                 saving: "Submitting...",
                 error: "Error!",
                 saved: "Submitted!"

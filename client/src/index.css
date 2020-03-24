@@ -26,6 +26,11 @@ body {
   background-color: #ccc;
 }
 
+strong {
+  font-family: "NeueHaasUnicaBold", sans-serif;
+  font-weight: normal;
+}
+
 * {
   box-sizing: border-box;
 }
