@@ -8,7 +8,7 @@ import client from "apollo/index";
 import { FeelingArchive } from "components/FeelingArchive";
 
 const Container = styled.div`
-  max-width: 5em;
+  max-width: 55em;
   margin: 0 auto;
   text-align: center;
   padding: 0 1em;
