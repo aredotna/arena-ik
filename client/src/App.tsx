@@ -167,6 +167,7 @@ const App: React.FC = () => {
             name="content"
             ref={register({ required: true, maxLength: 20 })}
             autoComplete="no"
+            value={mode === "saved" ? "" : undefined}
             placeholder={
               {
                 resting: "Type something...",
