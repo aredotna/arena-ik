@@ -32,10 +32,9 @@ const FEELING_QUERY = gql`
 
 export const FeelingArchive: React.FC = () => {
   const { loading, error, data } = useQuery(FEELING_QUERY);
-  console.log("process.env", process.env);
   return (
     <Container>
-      <Header>Archive of feelings</Header>
+      <Header>Weird Sensation Feels Good</Header>
       {loading && <h1>Loading...</h1>}
       {error && <h1>{error}</h1>}
       {data &&

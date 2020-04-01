@@ -126,7 +126,7 @@ const App: React.FC = () => {
   return (
     <ApolloProvider client={client}>
       <Container>
-        <Title>Weird Sensation Feels Good</Title>
+        <Title>Archive of Feelings</Title>
         <DefinitionContainer>
           <Definition>
             <p>
