@@ -14,7 +14,7 @@ const app = express();
 
 const corsOptions = {
   origin: "https://garden-for-the-book.are.na",
-  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 if (process.env.NODE_ENV !== "production") {
@@ -36,12 +36,12 @@ app.get("/api/policy", (req, res) => {
     method: "post",
     headers: {
       "X-AUTH-TOKEN": X_AUTH_TOKEN,
-      "X-APP-TOKEN": X_APP_TOKEN
+      "X-APP-TOKEN": X_APP_TOKEN,
     },
     data: {
-      query: print(GET_POLICY)
-    }
-  }).then(result => {
+      query: print(GET_POLICY),
+    },
+  }).then((result) => {
     res.json(result.data.data.me.policy);
   });
 });
@@ -52,7 +52,7 @@ app.post("/api/create", (req, res) => {
     method: "post",
     headers: {
       "X-AUTH-TOKEN": X_AUTH_TOKEN,
-      "X-APP-TOKEN": X_APP_TOKEN
+      "X-APP-TOKEN": X_APP_TOKEN,
     },
     data: {
       query: print(CREATE_BLOCK),
@@ -61,18 +61,22 @@ app.post("/api/create", (req, res) => {
           title: req.body.title,
           channel_ids: [CHANNEL_ID],
           value: req.body.content,
-          description: req.body.description
-        }
-      }
-    }
+          description: req.body.description,
+        },
+      },
+    },
   })
-    .then(result => {
+    .then((result) => {
       res.json(result.data);
     })
-    .catch(err => {
+    .catch((err) => {
       console.log("err", err.description);
       res.send(req.body);
     });
+});
+
+app.get("/exhibition", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
 app.get("*", (req, res) => {
