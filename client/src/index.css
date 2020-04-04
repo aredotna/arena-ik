@@ -35,6 +35,12 @@ strong {
   box-sizing: border-box;
 }
 
+a,
+a:active,
+a:visited {
+  color: #333;
+}
+
 body,
 html {
   box-sizing: border-box;

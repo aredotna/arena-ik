@@ -47,8 +47,6 @@ app.get("/api/policy", (req, res) => {
 });
 
 app.post("/api/create", (req, res) => {
-  console.log("res", res.body);
-
   axios({
     url: "https://api.are.na/graphql",
     method: "post",
