@@ -75,6 +75,10 @@ app.post("/api/create", (req, res) => {
     });
 });
 
+app.get("/exhibition", (req, res) => {
+  res.sendFile(path.join(__dirname + "../client/build/index.html"));
+});
+
 app.get("*", (req, res) => {
   console.log("res", res, "req", req);
   console.log(path.join(__dirname + "/client/build/index.html"));
