@@ -13,7 +13,7 @@ const CREATE_BLOCK = require("./mutations/createBlock");
 const app = express();
 
 const corsOptions = {
-  origin: "https://garden-for-the-book.are.na",
+  origin: "https://wsfg.are.na",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
