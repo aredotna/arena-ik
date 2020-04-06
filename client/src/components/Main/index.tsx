@@ -45,7 +45,7 @@ const Form = styled.form`
   align-items: center;
 `;
 
-const Textarea = styled.input.attrs({ type: "text", autocomplete: "no" })`
+const Input = styled.input.attrs({ type: "text", autocomplete: "no" })`
   display: block;
   margin: 0.5em 0 1.5em;
   border: 0;
@@ -68,7 +68,7 @@ const Textarea = styled.input.attrs({ type: "text", autocomplete: "no" })`
   }
 `;
 
-const Button = styled.input.attrs({ type: "submit" })`
+const Button = styled.button.attrs({ type: "submit" })`
   font-size: 2.5em;
   border: 0;
   padding: 0.5em 2em;
@@ -126,6 +126,13 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
         setMode("error");
       });
   };
+
+  const buttonCopy = {
+    resting: "Submit",
+    saving: "Submitting...",
+    error: "Error!",
+    saved: "Submitted!",
+  }[mode];
 
   return (
     <ApolloProvider client={client}>
@@ -191,7 +198,7 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
           Describe an experience that has triggered an ASMR response.
         </Question>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Textarea
+          <Input
             name="content"
             ref={register({ required: true, maxLength: 20 })}
             autoComplete="no"
@@ -205,17 +212,9 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
               }[mode]
             }
           />
-          <Button
-            disabled={mode !== "resting"}
-            value={
-              {
-                resting: "Submit",
-                saving: "Submitting...",
-                error: "Error!",
-                saved: "Submitted!",
-              }[mode]
-            }
-          />
+          <Button disabled={mode !== "resting"} type="submit">
+            {buttonCopy}
+          </Button>
         </Form>
         <FeelingArchive isExhibition={isExhibition} />
       </Container>
