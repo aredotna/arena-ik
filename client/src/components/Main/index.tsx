@@ -6,6 +6,7 @@ import styled from "styled-components";
 
 import client from "apollo/index";
 import { FeelingArchive } from "components/FeelingArchive";
+import { Footer } from "components/Footer";
 
 const Container = styled.div`
   max-width: 55em;
@@ -25,6 +26,10 @@ const Title = styled.div`
 
 const DefinitionContainer = styled.div`
   display: flex;
+
+  @media only screen and (max-width: 900px) {
+    flex-direction: column;
+  }
 `;
 
 const Definition = styled.div`
@@ -65,6 +70,10 @@ const Input = styled.input.attrs({ type: "text", autocomplete: "no" })`
 
   &::placeholder {
     color: rgba(255, 255, 255, 0.5);
+  }
+
+  @media only screen and (max-width: 900px) {
+    font-size: 3em;
   }
 `;
 
@@ -138,6 +147,7 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
     <ApolloProvider client={client}>
       <Container>
         <Title>Archive of Feelings</Title>
+
         <DefinitionContainer>
           <Definition>
             <p>
@@ -218,6 +228,7 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
         </Form>
         <FeelingArchive isExhibition={isExhibition} />
       </Container>
+      {!isExhibition && <Footer />}
     </ApolloProvider>
   );
 };

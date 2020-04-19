@@ -8,7 +8,7 @@ const Container = styled.div`
 `;
 
 const HeaderContainer = styled.div`
-  margin: 1em 0;
+  margin: 10em 0 1em;
 `;
 
 const Header = styled.div`
@@ -23,6 +23,19 @@ const Header = styled.div`
     text-decoration: none !important;
     color: inherit;
   }
+`;
+
+const FindMoreLink = styled.a`
+  font-size: 1.25em;
+  color: white;
+
+  &:visited {
+    color: white;
+  }
+`;
+
+const Block = styled.div`
+  margin: 2em 0;
 `;
 
 const FEELING_QUERY = gql`
@@ -49,6 +62,17 @@ export const FeelingArchive: React.FC<FeelingArchiveProps> = ({
   const { loading, error, data } = useQuery(FEELING_QUERY);
   return (
     <Container>
+      {loading && <h1>Loading...</h1>}
+      {error && <h1>{error}</h1>}
+      {data &&
+        data.channel &&
+        data.channel.blokks.map((block: any) => {
+          return (
+            <Block>
+              <h1>{block.content}</h1>
+            </Block>
+          );
+        })}
       <HeaderContainer>
         {!isExhibition && (
           <>
@@ -59,10 +83,10 @@ export const FeelingArchive: React.FC<FeelingArchiveProps> = ({
                 Feels Good
               </a>
             </Header>
-            <a href="https://arkdes.se/en/utstallning/asmr-weird-sensation-feels-good/">
+            <FindMoreLink href="https://arkdes.se/en/utstallning/asmr-weird-sensation-feels-good/">
               <br />
               Find out more about the exhibition
-            </a>
+            </FindMoreLink>
           </>
         )}
         {isExhibition && (
@@ -73,13 +97,6 @@ export const FeelingArchive: React.FC<FeelingArchiveProps> = ({
           </Header>
         )}
       </HeaderContainer>
-      {loading && <h1>Loading...</h1>}
-      {error && <h1>{error}</h1>}
-      {data &&
-        data.channel &&
-        data.channel.blokks.map((block: any) => {
-          return <h1>{block.content}</h1>;
-        })}
     </Container>
   );
 };
