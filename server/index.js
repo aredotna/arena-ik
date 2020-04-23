@@ -6,6 +6,7 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const cors = require("cors");
+const enforce = require("express-sslify");
 
 const GET_POLICY = require("./queries/policy");
 const CREATE_BLOCK = require("./mutations/createBlock");
@@ -29,6 +30,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use(sslRedirect());
+app.use(enforce.HTTPS());
 
 app.get("/api/policy", (req, res) => {
   axios({
