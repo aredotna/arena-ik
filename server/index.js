@@ -92,7 +92,9 @@ app.get("/exhibition", (req, res) => {
 });
 
 app.get("*", (req, res) => {
+  console.log("req", req.header);
   if (req.header("x-forwarded-proto") !== "https") {
+    console.log("❤️ SHOULD BE REDIRECTING");
     return res.redirect(`https://${req.header("host")}${req.url}`);
   }
   console.log("res", res, "req", req);
