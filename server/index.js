@@ -30,7 +30,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use(sslRedirect());
-app.use(enforce.HTTPS({ trustProtoHeader: true }));
+app.use(
+  enforce.HTTPS({ trustProtoHeader: true, trustXForwardedHostHeader: true })
+);
 
 app.get("/api/policy", (req, res) => {
   axios({
