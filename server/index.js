@@ -92,6 +92,9 @@ app.get("/exhibition", (req, res) => {
 });
 
 app.get("*", (req, res) => {
+  if (req.header("x-forwarded-proto") !== "https") {
+    return res.redirect(`https://${req.header("host")}${req.url}`);
+  }
   console.log("res", res, "req", req);
   console.log(path.join(__dirname + "/client/build/index.html"));
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
