@@ -36,7 +36,6 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 if (process.env.NODE_ENV === "production") {
   app.use((req, res, next) => {
-    console.log("req", req.header);
     if (req.header("x-forwarded-proto") !== "https")
       res.redirect(`https://${req.header("host")}${req.url}`);
     else next();
@@ -93,13 +92,6 @@ app.get("/exhibition", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-  console.log("req", req.header);
-  if (req.header("x-forwarded-proto") !== "https") {
-    console.log("❤️ SHOULD BE REDIRECTING");
-    return res.redirect(`https://${req.header("host")}${req.url}`);
-  }
-  console.log("res", res, "req", req);
-  console.log(path.join(__dirname + "/client/build/index.html"));
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
 
