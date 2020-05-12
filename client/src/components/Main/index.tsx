@@ -8,10 +8,6 @@ import client from "apollo/index";
 import { Footer } from "components/Footer";
 import { uploadFile } from "lib/uploader";
 
-interface HTMLInputEvent extends Event {
-  target: HTMLInputElement & EventTarget;
-}
-
 const Container = styled.div`
   padding: 1em;
   min-height: 100vh;
@@ -321,7 +317,7 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
           <Right>
             <Input
               name="description"
-              ref={register({ required: true, maxLength: 20 })}
+              ref={register({ required: true })}
               autoComplete="no"
               value={mode === "saved" ? "" : undefined}
               placeholder={
