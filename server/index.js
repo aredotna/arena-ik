@@ -25,12 +25,6 @@ if (process.env.NODE_ENV !== "production") {
 
 const { X_AUTH_TOKEN, X_APP_TOKEN, CHANNEL_ID } = process.env;
 
-console.log({
-  X_AUTH_TOKEN,
-  X_APP_TOKEN,
-  CHANNEL_ID,
-});
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("combined"));
@@ -71,12 +65,6 @@ app.get("/api/policy", (req, res) => {
 });
 
 app.post("/api/create", (req, res) => {
-  console.log({
-    body: req.body,
-    channel_ids: [CHANNEL_ID],
-    value: req.body.content,
-    description: req.body.description,
-  });
   axios({
     url: "https://api.are.na/graphql",
     method: "post",
