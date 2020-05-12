@@ -25,6 +25,12 @@ if (process.env.NODE_ENV !== "production") {
 
 const { X_AUTH_TOKEN, X_APP_TOKEN, CHANNEL_ID } = process.env;
 
+console.log({
+  X_AUTH_TOKEN,
+  X_APP_TOKEN,
+  CHANNEL_ID,
+});
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("combined"));
@@ -44,17 +50,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-app.use(
-  "/s3",
-  require("react-s3-uploader/s3router")({
-    bucket: "arena-s4ad",
-    region: "us-east-1",
-    signatureVersion: "v4",
-    signatureExpires: 60,
-    headers: { "Access-Control-Allow-Origin": "*" },
-  })
-);
-
 app.get("/api/policy", (req, res) => {
   axios({
     url: "https://api.are.na/graphql",
@@ -66,12 +61,22 @@ app.get("/api/policy", (req, res) => {
     data: {
       query: print(GET_POLICY),
     },
-  }).then((result) => {
-    res.json(result.data.data.me.policy);
-  });
+  })
+    .then((result) => {
+      res.json(result.data.data.me.policy);
+    })
+    .catch((err) => {
+      res.send(req.body);
+    });
 });
 
 app.post("/api/create", (req, res) => {
+  console.log({
+    body: req.body,
+    channel_ids: [CHANNEL_ID],
+    value: req.body.content,
+    description: req.body.description,
+  });
   axios({
     url: "https://api.are.na/graphql",
     method: "post",
@@ -83,9 +88,9 @@ app.post("/api/create", (req, res) => {
       query: print(CREATE_BLOCK),
       variables: {
         input: {
-          title: req.body.title,
+          title: `${new Date().toLocaleDateString()}`,
           channel_ids: [CHANNEL_ID],
-          value: req.body.content,
+          value: req.body.url,
           description: req.body.description,
         },
       },
@@ -95,7 +100,6 @@ app.post("/api/create", (req, res) => {
       res.json(result.data);
     })
     .catch((err) => {
-      console.log("err", err.description);
       res.send(req.body);
     });
 });

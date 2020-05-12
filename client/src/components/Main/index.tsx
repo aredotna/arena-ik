@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, ChangeEvent } from "react";
 import { ApolloProvider } from "@apollo/react-hooks";
 import useAxios from "axios-hooks";
 import { useForm } from "react-hook-form";
@@ -6,17 +6,27 @@ import styled from "styled-components";
 
 import client from "apollo/index";
 import { Footer } from "components/Footer";
-import { useCallback } from "react";
+import { uploadFile } from "lib/uploader";
+
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
 
 const Container = styled.div`
   padding: 1em;
   min-height: 100vh;
   position: relative;
+
+  @media only screen and (max-width: 900px) {
+    padding: 0;
+  }
 `;
 
 const Info = styled.div`
   width: 20em;
-  margin
+  @media only screen and (max-width: 900px) {
+    padding: 1em;
+  }
 `;
 
 const Title = styled.div`
@@ -36,36 +46,74 @@ const Description = styled.div`
   }
 `;
 
-const Skeletal = styled.div`
+const BOX_WIDTH = "48vh";
+const MOBILE_BOX_WIDTH = "80vw";
+
+const Skeletal = styled.div<{ hasImage: boolean }>`
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  width: 500px;
-  height: 500px;
+  width: ${BOX_WIDTH};
+  height: ${BOX_WIDTH};
   border: 1px solid #aaa;
 
-  &:after,
-  &:before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    display: block;
-    content: "";
-    width: 150%;
-    height: 1px;
-    background-color: #aaa;
+  @media only screen and (max-width: 900px) {
+    width: ${MOBILE_BOX_WIDTH};
+    height: ${MOBILE_BOX_WIDTH};
+  }
+
+  ${(props) =>
+    props.hasImage &&
+    `
+    border: none;
+    background-color: white;
+  `}
+
+  > img {
+    max-width: ${BOX_WIDTH};
+    max-height: ${BOX_WIDTH};
     transform-origin: 0 0;
+    z-index: 100;
+
+    @media only screen and (max-width: 900px) {
+      max-width: ${MOBILE_BOX_WIDTH};
+      max-height: ${MOBILE_BOX_WIDTH};
+    }
   }
 
-  &:after {
-    transform: rotate(45deg) translate(-50%, -50%);
-  }
+  ${(props) =>
+    !props.hasImage &&
+    `
+      &:after,
+      &:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        content: "";
+        width: 150%;
+        height: 1px;
+        background-color: #aaa;
+        transform-origin: 0 0;
+      }
 
-  &:before {
-    transform: rotate(-45deg) translate(-50%, -50%);
-  }
+      &:after {
+        transform: rotate(45deg) translate(-50%, -50%);
+      }
+
+      &:before {
+        transform: rotate(-45deg) translate(-50%, -50%);
+      }
+  `}
+`;
+
+const FileInput = styled.input.attrs({ type: "file", accept: "image/*" })`
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
 `;
 
 const Form = styled.form`
@@ -73,16 +121,51 @@ const Form = styled.form`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  @media only screen and (max-width: 900px) {
+    flex-direction: column;
+    position: relative;
+
+    height: auto;
+    padding-bottom: 10em;
+  }
 `;
 
-const Inner = styled.div``;
+const Left = styled.div`
+  margin-top: 3em;
+  display: flex;
+  flex-direction: column-reverse;
+`;
+
+const Right = styled(Left)`
+  margin-left: 5em;
+
+  @media only screen and (max-width: 900px) {
+    margin-left: 0;
+  }
+`;
 
 const Input = styled.textarea`
-  width: 500px;
-  height: 500px;
+  width: ${BOX_WIDTH};
+  height: ${BOX_WIDTH};
+
+  @media only screen and (max-width: 900px) {
+    width: ${MOBILE_BOX_WIDTH};
+    height: ${MOBILE_BOX_WIDTH};
+  }
+
   border: 1px solid #aaa;
-  margin-left: 5em;
+
   resize: none;
+  padding: 1em;
+  font-size: 14px;
 `;
 
 const Button = styled.button.attrs({ type: "submit" })`
@@ -101,10 +184,17 @@ const Button = styled.button.attrs({ type: "submit" })`
   font-size: 2em;
   cursor: pointer;
   transition: background-color 0.5s ease, border-color 0.5s ease;
+
+  ${(props) =>
+    props.disabled &&
+    `
+      border-top: 2px solid #ddd;
+      color: #ddd;
+  `}
 `;
 
 type FormData = {
-  content: string;
+  description: string;
 };
 
 interface MainProps {
@@ -116,6 +206,7 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
     "resting"
   );
 
+  const [{ data: policy, loading, error }] = useAxios("/api/policy");
   const [, addBlock] = useAxios(
     {
       url: "/api/create",
@@ -127,35 +218,48 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
     { manual: true }
   );
 
-  const [image, setImage] = useState<null | string>(null);
+  const [image, setImage] = useState<null | { url: string; file: File }>(null);
 
   const onFileChange = useCallback(
-    (e) => {
-      console.log(
-        "e.target.files",
-        e.target.files,
-        e.target.files[0].secure_url
-      );
-      setImage(URL.createObjectURL(e.target.files[0]));
+    (event: ChangeEvent<HTMLInputElement>) => {
+      if (event && event.target && event.target.files) {
+        const file = event.target.files[0];
+        setImage({ url: URL.createObjectURL(file), file: file });
+      }
     },
     [setImage]
   );
 
   const { register, handleSubmit } = useForm<FormData>();
-  const onSubmit = (data: FormData) => {
-    const { content } = data;
+  const uploadAndSave = (data: FormData) => {
+    console.log("policy");
+    if (!policy || !image) {
+      console.log("image", image, policy);
+      return;
+    }
+
+    const { description } = data;
+
     setMode("saving");
-    addBlock({
-      data: {
-        content,
+
+    uploadFile({
+      blob: image.file,
+      policy,
+      onDone: (url?: string | null | undefined) => {
+        console.log("onDone", { url, description });
+        addBlock({
+          data: {
+            url,
+            description,
+          },
+        }).then(() => {
+          setMode("saved");
+        });
       },
-    })
-      .then(() => {
-        setMode("saved");
-      })
-      .catch(() => {
-        setMode("error");
-      });
+      onFileProgress: () => {
+        console.log("onFileProgress");
+      },
+    });
   };
 
   const buttonCopy = {
@@ -164,6 +268,22 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
     error: "Error!",
     saved: "Submitted!",
   }[mode];
+
+  if (loading) {
+    return (
+      <Container>
+        <h2>Loading...</h2>
+      </Container>
+    );
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <h2>Error: {error.message}</h2>
+      </Container>
+    );
+  }
 
   return (
     <ApolloProvider client={client}>
@@ -188,17 +308,19 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
             </p>
           </Description>
         </Info>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            {image && <img src={image} />}
-            {!image && <Skeletal />}
+        <Form onSubmit={handleSubmit(uploadAndSave)}>
+          <Left>
+            <Skeletal hasImage={!!image}>
+              {image && <img src={image.url} />}
+              <FileInput onChange={onFileChange} />
+            </Skeletal>
 
-            <input type="file" onChange={onFileChange} />
-          </div>
+            <h3>Upload your image</h3>
+          </Left>
 
-          <Inner>
+          <Right>
             <Input
-              name="content"
+              name="description"
               ref={register({ required: true, maxLength: 20 })}
               autoComplete="no"
               value={mode === "saved" ? "" : undefined}
@@ -211,9 +333,11 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
                 }[mode]
               }
             />
-          </Inner>
 
-          <Button disabled={mode !== "resting"} type="submit">
+            <h3>Type your entry</h3>
+          </Right>
+
+          <Button disabled={mode !== "resting" || !image} type="submit">
             {buttonCopy}
           </Button>
         </Form>
