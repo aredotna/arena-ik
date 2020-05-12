@@ -28,19 +28,32 @@ const { X_AUTH_TOKEN, X_APP_TOKEN, CHANNEL_ID } = process.env;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("combined"));
-app.use(sslRedirect());
-app.use(
-  enforce.HTTPS({ trustProtoHeader: true, trustXForwardedHostHeader: true })
-);
 app.use(express.static(path.join(__dirname, "../client/build")));
 
 if (process.env.NODE_ENV === "production") {
+  app.use(sslRedirect());
+
+  app.use(
+    enforce.HTTPS({ trustProtoHeader: true, trustXForwardedHostHeader: true })
+  );
+
   app.use((req, res, next) => {
     if (req.header("x-forwarded-proto") !== "https")
       res.redirect(`https://${req.header("host")}${req.url}`);
     else next();
   });
 }
+
+app.use(
+  "/s3",
+  require("react-s3-uploader/s3router")({
+    bucket: "arena-s4ad",
+    region: "us-east-1",
+    signatureVersion: "v4",
+    signatureExpires: 60,
+    headers: { "Access-Control-Allow-Origin": "*" },
+  })
+);
 
 app.get("/api/policy", (req, res) => {
   axios({

@@ -17,13 +17,6 @@ const Logos = styled.div`
   line-height: 1;
 `;
 
-const ArkdesLogo = styled.img.attrs({
-  src: "arkdes-logo.png",
-  height: "15px",
-})`
-  margin-right: 0.75em;
-`;
-
 const ArenaLogo = styled.img.attrs({
   src: "arena-logo.png",
   height: "45px",
@@ -39,17 +32,12 @@ export const Footer: React.FC = () => {
   return (
     <Container>
       <Disclaimer>
-        All responses collected are anonymous. Responses will be made public on
-        this page and{" "}
-        <a href="https://www.are.na/arkdes-stockholm/archive-of-feelings">
-          this
-        </a>{" "}
-        Are.na channel.
+        Note: Submissions may be anonymous, or credited—choose your preference
+        before submitting. Also note that excerpts from select submissions may
+        be included in an upcoming collaborative book project, and may be
+        edited.
       </Disclaimer>
       <Logos>
-        <a href="https://arkdes.se/">
-          <ArkdesLogo />
-        </a>
         <a href="https://are.na">
           <ArenaLogo />
         </a>

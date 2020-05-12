@@ -1,33 +1,12 @@
-@font-face {
-  font-family: "NeueHaasUnica";
-  src: url("./assets/NeueHaasUnicaPro-Regular.woff") format("woff"),
-    url("./assets/NeueHaasUnicaPro-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: "NeueHaasUnicaBold";
-  src: url("./assets/NeueHaasUnicaPro-Bold.woff") format("woff"),
-    url("./assets/NeueHaasUnicaPro-Bold.woff2") format("woff2");
-}
-
-@font-face {
-  font-family: "SometimesTimes";
-  src: url("./assets/SometimesTimes-Regular.woff") format("woff"),
-    url("./assets/SometimesTimes-Regular.woff2") format("woff2");
-}
-
 body {
   margin: 0;
-  font-family: "NeueHaasUnica", sans-serif;
+  font-family: "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ccc;
+  background-color: #eee;
 }
 
 strong {
-  font-family: "NeueHaasUnicaBold", sans-serif;
   font-weight: normal;
 }
 

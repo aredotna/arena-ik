@@ -10,11 +10,6 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/" component={Main} />
-          <Route
-            exact
-            path="/exhibition"
-            render={() => <Main isExhibition />}
-          />
         </Switch>
       </Router>
     </>

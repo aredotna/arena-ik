@@ -1,7 +1,7 @@
 {
-  "name": "arena-arkdes",
+  "name": "arena-pw",
   "version": "1.0.0",
-  "description": "Collaboration between Are.na and ArkDes for WEIRD SENSATION FEELS GOOD",
+  "description": "Collaboration between Are.na and Pioneer Works for S4AD",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
@@ -33,6 +33,7 @@
     "pino-colada": "^1.4.5",
     "react-hook-form": "^4.9.8",
     "react-router-dom": "^5.1.2",
+    "react-s3-uploader": "^4.9.2",
     "styled-components": "^5.0.1"
   },
   "eslintConfig": {
