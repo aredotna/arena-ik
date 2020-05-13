@@ -285,21 +285,25 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
     <ApolloProvider client={client}>
       <Container>
         <Info>
-          <Title>Digital Diary</Title>
+          <Title>Open Call – Digital Diary</Title>
           <Description>
             <p>
-              After weeks in isolation, virtual interactions and disembodied
-              relationships have normalized, pushing pre-pandemic technologies
-              to their limits. <a href="">The Creative Independent</a>,{" "}
-              <a href="">Pioneer Works</a>, and <a href="">Are.na</a> are now
-              collaborating to document the tensions of this new [virtual]
-              reality through a collective time capsule of sorts, called the
-              Digital Self-Help Diary.
+              <a href="">The Creative Independent</a>,{" "}
+              <a href="">Pioneer Works</a>, and <a href="">Are.na</a> are
+              collaborating to document our new [virtual] reality through a
+              collective time capsule of sorts, to be released in a book for
+              this year’s Software for Artists Day.
             </p>
             <p>
               <strong>
-                You are invited to add a diary entry—including one image and one
-                accompanying text—documenting your digital life in quarantine.
+                What does a timeline of your digital day look and feel like?
+              </strong>
+            </p>
+            <p>
+              <strong>
+                You are invited to add a diary entry below—including one image
+                and one accompanying text—reflecting on your relationship with
+                technology during life in quarantine.
               </strong>
             </p>
           </Description>
@@ -322,7 +326,8 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
               value={mode === "saved" ? "" : undefined}
               placeholder={
                 {
-                  resting: "What are your thoughts?",
+                  resting:
+                    "What are your feelings about digital life in quarantine?",
                   saving: "Saving...",
                   error: "Error!",
                   saved: "Submitted!",
