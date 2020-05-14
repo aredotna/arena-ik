@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Container = styled.div`
   background: white;
-  padding: 1em 2em;
+  padding: 1em 1em;
   box-shadow: inset 0 10px 15px -10px #777;
   display: flex;
   align-items: center;
@@ -15,6 +15,10 @@ const Logos = styled.div`
   justify-content: flex-end;
   flex: 1;
   line-height: 1;
+
+  img {
+    margin-right: 0.5em;
+  }
 `;
 
 const ArenaLogo = styled.img.attrs({
@@ -22,22 +26,28 @@ const ArenaLogo = styled.img.attrs({
   height: "45px",
 })``;
 
-const Disclaimer = styled.div`
-  flex: 1;
-  font-size: 1em;
-  font-style: italic;
+const PWLogo = styled.img.attrs({
+  src: "PW_Logo.png",
+  height: "15px",
+})``;
+
+const TCILogo = styled.img.attrs({
+  src: "logo-spiral.png",
+  height: "35px",
+})`
+  margin-right: 0px !important;
 `;
 
 export const Footer: React.FC = () => {
   return (
     <Container>
-      <Disclaimer>
-        Note: Submissions may be anonymous, or credited—choose your preference
-        before submitting. Also note that excerpts from select submissions may
-        be included in an upcoming collaborative book project, and may be
-        edited.
-      </Disclaimer>
       <Logos>
+        <a href="https://pioneerworks.org">
+          <PWLogo />
+        </a>
+        <a href="https://thecreativeindependent.com">
+          <TCILogo />
+        </a>
         <a href="https://are.na">
           <ArenaLogo />
         </a>

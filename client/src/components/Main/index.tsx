@@ -12,14 +12,17 @@ const Container = styled.div`
   padding: 1em;
   min-height: 100vh;
   position: relative;
+  display: flex;
 
   @media only screen and (max-width: 900px) {
     padding: 0;
+    flex-direction: column;
   }
 `;
 
 const Info = styled.div`
-  width: 20em;
+  width: 15em;
+  margin-right: 4em;
   @media only screen and (max-width: 900px) {
     padding: 1em;
   }
@@ -42,7 +45,7 @@ const Description = styled.div`
   }
 `;
 
-const BOX_WIDTH = "48vh";
+const BOX_WIDTH = "55vh";
 const MOBILE_BOX_WIDTH = "80vw";
 
 const Skeletal = styled.div<{ hasImage: boolean }>`
@@ -115,29 +118,31 @@ const FileInput = styled.input.attrs({ type: "file", accept: "image/*" })`
 const Form = styled.form`
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  justify-content: flex-start;
+  align-items: flex-start;
 
   @media only screen and (max-width: 900px) {
     flex-direction: column;
     position: relative;
 
     height: auto;
-    padding-bottom: 10em;
+    padding: 1em;
+    padding-bottom: 20em;
   }
 `;
 
 const Left = styled.div`
-  margin-top: 3em;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+
+  h3 {
+    margin-top: 0;
+  }
+  @media only screen and (max-width: 900px) {
+    h3 {
+      margin-top: 2em;
+    }
+  }
 `;
 
 const Right = styled(Left)`
@@ -157,6 +162,14 @@ const Input = styled.textarea`
     height: ${MOBILE_BOX_WIDTH};
   }
 
+  border: 1px solid #aaa;
+
+  resize: none;
+  padding: 1em;
+  font-size: 14px;
+`;
+
+const NameInput = styled.input`
   border: 1px solid #aaa;
 
   resize: none;
@@ -191,6 +204,7 @@ const Button = styled.button.attrs({ type: "submit" })`
 
 type FormData = {
   description: string;
+  name: string;
 };
 
 interface MainProps {
@@ -228,15 +242,20 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
 
   const { register, handleSubmit } = useForm<FormData>();
   const uploadAndSave = (data: FormData) => {
-    console.log("policy");
     if (!policy || !image) {
-      console.log("image", image, policy);
       return;
     }
 
-    const { description } = data;
+    const { description, name } = data;
 
     setMode("saving");
+
+    const mergedDescription = name
+      ? `${description}
+
+        – ${name}
+      `
+      : description;
 
     uploadFile({
       blob: image.file,
@@ -246,14 +265,11 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
         addBlock({
           data: {
             url,
-            description,
+            description: mergedDescription,
           },
         }).then(() => {
           setMode("saved");
         });
-      },
-      onFileProgress: () => {
-        console.log("onFileProgress");
       },
     });
   };
@@ -306,19 +322,31 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
                 technology during life in quarantine.
               </strong>
             </p>
+            <p>
+              <em>
+                Note: Submissions may be anonymous, or credited—choose your
+                preference before submitting. Also note that excerpts from
+                select submissions may be included in an upcoming collaborative
+                book project, and may be edited.
+              </em>
+            </p>
+            <p>
+              View past submissions{" "}
+              <a href="https://www.are.na/share/KpGHsCk">here</a>.
+            </p>
           </Description>
         </Info>
         <Form onSubmit={handleSubmit(uploadAndSave)}>
           <Left>
+            <h3>1. Upload your image</h3>
             <Skeletal hasImage={!!image}>
               {image && <img src={image.url} />}
               <FileInput onChange={onFileChange} />
             </Skeletal>
-
-            <h3>Upload your image</h3>
           </Left>
 
           <Right>
+            <h3>2. Type your entry</h3>
             <Input
               name="description"
               ref={register({ required: true })}
@@ -327,7 +355,7 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
               placeholder={
                 {
                   resting:
-                    "What are your feelings about digital life in quarantine?",
+                    "What does a timeline of your digital day look and feel like?",
                   saving: "Saving...",
                   error: "Error!",
                   saved: "Submitted!",
@@ -335,7 +363,9 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
               }
             />
 
-            <h3>Type your entry</h3>
+            <h3 style={{ marginTop: "1em" }}>3. Enter your name (optional)</h3>
+
+            <NameInput ref={register({ required: false })} name="name" />
           </Right>
 
           <Button disabled={mode !== "resting" || !image} type="submit">
