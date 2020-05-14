@@ -21,22 +21,21 @@ const Container = styled.div`
 `;
 
 const Info = styled.div`
-  width: 15em;
+  width: 17em;
   margin-right: 4em;
   @media only screen and (max-width: 900px) {
     padding: 1em;
   }
 `;
 
-const Title = styled.div`
-  font-size: 1rem;
+const Title = styled.h3`
   text-transform: uppercase;
   font-weight: bold;
   margin: 0 0 0.5em;
 `;
 
 const Description = styled.div`
-  font-size: 0.75rem;
+  font-size: 14px;
   strong {
     font-weight: bold;
   }
@@ -304,34 +303,32 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
           <Title>Open Call – Digital Diary</Title>
           <Description>
             <p>
+              <strong>What does your digital day look and feel like?</strong>
+            </p>
+            <p>
               <a href="">The Creative Independent</a>,{" "}
               <a href="">Pioneer Works</a>, and <a href="">Are.na</a> are
               collaborating to document our new [virtual] reality through a
               collective time capsule of sorts, to be released in a book for
               this year’s Software for Artists Day.
             </p>
+
             <p>
               <strong>
-                What does a timeline of your digital day look and feel like?
-              </strong>
-            </p>
-            <p>
-              <strong>
-                You are invited to add a diary entry below—including one image
-                and one accompanying text—reflecting on your relationship with
+                You are invited to add a diary entry—including one image and one
+                accompanying text—reflecting on your relationship with
                 technology during life in quarantine.
               </strong>
             </p>
             <p>
               <em>
-                Note: Submissions may be anonymous, or credited—choose your
-                preference before submitting. Also note that excerpts from
-                select submissions may be included in an upcoming collaborative
-                book project, and may be edited.
+                Note: If you leave the name field blank, your submission will be
+                completely anonymous. Also note that excerpts from select
+                submissions may be printed in an upcoming book.
               </em>
             </p>
             <p>
-              View past submissions{" "}
+              View all submissions{" "}
               <a href="https://www.are.na/share/KpGHsCk">here</a>.
             </p>
           </Description>
@@ -354,8 +351,7 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
               value={mode === "saved" ? "" : undefined}
               placeholder={
                 {
-                  resting:
-                    "What does a timeline of your digital day look and feel like?",
+                  resting: "What does your digital day look and feel like?",
                   saving: "Saving...",
                   error: "Error!",
                   saved: "Submitted!",
