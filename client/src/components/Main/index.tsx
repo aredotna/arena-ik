@@ -324,7 +324,8 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
               <em>
                 Note: If you leave the name field blank, your submission will be
                 completely anonymous. Also note that excerpts from select
-                submissions may be printed in an upcoming book.
+                submissions may be printed in an upcoming book. Please only
+                upload images that you own the rights to.
               </em>
             </p>
             <p>

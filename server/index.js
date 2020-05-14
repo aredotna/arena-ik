@@ -14,7 +14,7 @@ const CREATE_BLOCK = require("./mutations/createBlock");
 const app = express();
 
 const corsOptions = {
-  origin: "https://wsfg.are.na",
+  origin: "https://digital-diary.are.na",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
@@ -32,6 +32,8 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 
 if (process.env.NODE_ENV === "production") {
   app.use(sslRedirect());
+
+  app.use(cors(corsOptions));
 
   app.use(
     enforce.HTTPS({ trustProtoHeader: true, trustXForwardedHostHeader: true })
