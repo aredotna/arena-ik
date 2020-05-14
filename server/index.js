@@ -28,7 +28,6 @@ const { X_AUTH_TOKEN, X_APP_TOKEN, CHANNEL_ID } = process.env;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(morgan("combined"));
-app.use(express.static(path.join(__dirname, "../client/build")));
 
 if (process.env.NODE_ENV === "production") {
   app.use(sslRedirect());
@@ -45,6 +44,8 @@ if (process.env.NODE_ENV === "production") {
     else next();
   });
 }
+
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 app.get("/api/policy", (req, res) => {
   axios({
@@ -92,10 +93,6 @@ app.post("/api/create", (req, res) => {
     .catch((err) => {
       res.send(req.body);
     });
-});
-
-app.get("/exhibition", (req, res) => {
-  res.sendFile(path.join(__dirname + "/../client/build/index.html"));
 });
 
 app.get("*", (req, res) => {
