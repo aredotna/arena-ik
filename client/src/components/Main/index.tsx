@@ -306,11 +306,14 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
               <strong>What does your digital day look and feel like?</strong>
             </p>
             <p>
-              <a href="">The Creative Independent</a>,{" "}
-              <a href="">Pioneer Works</a>, and <a href="">Are.na</a> are
-              collaborating to document our new [virtual] reality through a
-              collective time capsule of sorts, to be released in a book for
-              this year’s Software for Artists Day.
+              <a href="https://thecreativeindependent.com">
+                The Creative Independent
+              </a>
+              , <a href="https://pioneerworks.org">Pioneer Works</a>, and{" "}
+              <a href="https://www.are.na">Are.na</a> are collaborating to
+              document our new [virtual] reality through a collective time
+              capsule of sorts, to be released in a book for this year’s
+              Software for Artists Day.
             </p>
 
             <p>
