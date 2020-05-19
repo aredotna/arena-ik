@@ -333,7 +333,10 @@ const Main: React.FC<MainProps> = ({ isExhibition }) => {
             </p>
             <p>
               View all submissions{" "}
-              <a href="https://www.are.na/share/KpGHsCk">here</a>.
+              <a href="https://www.are.na/s4ad-digital-diary/digital-diary">
+                here
+              </a>
+              .
             </p>
           </Description>
         </Info>
