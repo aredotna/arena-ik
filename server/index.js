@@ -8,13 +8,12 @@ const morgan = require("morgan");
 const cors = require("cors");
 const enforce = require("express-sslify");
 
-const GET_POLICY = require("./queries/policy");
-const CREATE_BLOCK = require("./mutations/createBlock");
+const GET_VINTAGE_SHIRTS = require("./queries/vintageShirts");
 
 const app = express();
 
 const corsOptions = {
-  origin: "https://digital-diary.are.na",
+  origin: "https://chessclub.are.na",
   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
@@ -23,7 +22,7 @@ if (process.env.NODE_ENV !== "production") {
   app.use(cors(corsOptions));
 }
 
-const { X_AUTH_TOKEN, X_APP_TOKEN, CHANNEL_ID } = process.env;
+const { X_SHOPIFY_ACCESS_TOKEN } = process.env;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -47,48 +46,19 @@ if (process.env.NODE_ENV === "production") {
 
 app.use(express.static(path.join(__dirname, "../client/build")));
 
-app.get("/api/policy", (req, res) => {
+app.get("/api/vintage-shirts", (req, res) => {
   axios({
-    url: "https://api.are.na/graphql",
+    url: "https://aredotna.myshopify.com/admin/api/2020-04/graphql.json",
     method: "post",
     headers: {
-      "X-AUTH-TOKEN": X_AUTH_TOKEN,
-      "X-APP-TOKEN": X_APP_TOKEN,
+      "X-Shopify-Access-Token": X_SHOPIFY_ACCESS_TOKEN,
     },
     data: {
-      query: print(GET_POLICY),
+      query: print(GET_VINTAGE_SHIRTS),
     },
   })
     .then((result) => {
-      res.json(result.data.data.me.policy);
-    })
-    .catch((err) => {
-      res.send(req.body);
-    });
-});
-
-app.post("/api/create", (req, res) => {
-  axios({
-    url: "https://api.are.na/graphql",
-    method: "post",
-    headers: {
-      "X-AUTH-TOKEN": X_AUTH_TOKEN,
-      "X-APP-TOKEN": X_APP_TOKEN,
-    },
-    data: {
-      query: print(CREATE_BLOCK),
-      variables: {
-        input: {
-          title: `${new Date().toLocaleDateString()}`,
-          channel_ids: [CHANNEL_ID],
-          value: req.body.url,
-          description: req.body.description,
-        },
-      },
-    },
-  })
-    .then((result) => {
-      res.json(result.data);
+      res.json(result.data.data);
     })
     .catch((err) => {
       res.send(req.body);

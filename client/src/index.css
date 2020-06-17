@@ -3,11 +3,7 @@ body {
   font-family: "Arial", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #eee;
-}
-
-strong {
-  font-weight: normal;
+  background-color: #fff;
 }
 
 * {
@@ -17,7 +13,7 @@ strong {
 a,
 a:active,
 a:visited {
-  color: #333;
+  color: #00f;
 }
 
 body,

@@ -1,7 +1,7 @@
 {
-  "name": "arena-pw",
+  "name": "arena-ik",
   "version": "1.0.0",
-  "description": "Collaboration between Are.na and Pioneer Works for S4AD",
+  "description": "Collaboration between Are.na and Internal Knowledge for Juneteenth 2020",
   "main": "index.js",
   "scripts": {
     "start": "node server/index.js",
