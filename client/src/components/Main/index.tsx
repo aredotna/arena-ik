@@ -138,16 +138,18 @@ const Main: React.FC = () => {
             </TwoThirds>
             <OneThird>
               <p>
-                For Juneteeth 2020, <a href="">Internal Knowledge</a> and{" "}
-                <a href="">Are.na</a> present Chess Camp – a partnership
-                exploring <strong>strategy</strong>, <strong>empathy</strong>,{" "}
-                <strong>psychological freedom</strong> and{" "}
-                <strong>Black history</strong>.
+                For Juneteeth 2020,{" "}
+                <a href="https://intrnlknwldg.com">Internal Knowledge</a> and{" "}
+                <a href="https://www.are.na">Are.na</a> present Chess Camp – a
+                partnership exploring <strong>strategy</strong>,{" "}
+                <strong>empathy</strong>, <strong>psychological freedom</strong>{" "}
+                and <strong>Black history</strong>.
               </p>
               <p>
                 100% of the proceeds will be donated to the{" "}
-                <a href="">NAACP legal defense fund</a> and <a href="">BEAM</a>,
-                an organization dedicated to the emotional/mental health and
+                <a href="https://www.naacpldf.org">NAACP legal defense fund</a>{" "}
+                and <a href="https://www.beam.community">BEAM</a>, an
+                organization dedicated to the emotional/mental health and
                 healing of Black communities.
               </p>
             </OneThird>
@@ -181,8 +183,9 @@ const Main: React.FC = () => {
               </ProductP>
               <Product>
                 <ChannelThumb id="chess-camp-vol-1" />
-                <ChannelThumb id="arena-influences" />
-                <ChannelThumb id="arena-influences" />
+                <ChannelThumb id="chess-camp-vol-2" />
+                <ChannelThumb id="chess-camp-vol-3" />
+                <ChannelThumb id="chess-camp-vol-4" />
               </Product>
             </OneThird>
           </Products>
