@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
+    "@types/lodash": "^4.14.155",
     "@types/react-router-dom": "^5.1.3",
     "@types/styled-components": "^5.0.0",
     "apollo-boost": "^0.4.4",
@@ -26,6 +27,7 @@
     "express-sslify": "^1.2.0",
     "graphql": "^14.5.8",
     "heroku-ssl-redirect": "^0.0.4",
+    "lodash": "^4.17.15",
     "morgan": "^1.9.1",
     "node-env-run": "^3.0.2",
     "nodemon": "^1.19.4",

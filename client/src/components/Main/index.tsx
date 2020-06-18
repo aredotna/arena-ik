@@ -4,6 +4,7 @@ import styled from "styled-components";
 import useAxios from "axios-hooks";
 
 import client from "apollo/index";
+import { ChannelThumb } from "components/ChannelThumb";
 
 const Container = styled.div`
   display: flex;
@@ -15,9 +16,9 @@ const FixedLogo = styled.img.attrs({
   src: "ik-chess-camp-black.png",
 })`
   position: fixed;
-  top: 1em;
-  left: 1em;
-  width: 20vw;
+  left: 1.5em;
+  width: 14vw;
+  top: 1.75em;
 
   @media only screen and (max-width: 900px) {
     position: static;
@@ -29,7 +30,7 @@ const FixedLogo = styled.img.attrs({
 
 const Content = styled.div`
   width: 100vw;
-  padding-left: 22vw;
+  padding-left: 15vw;
   position: relative;
 
   @media only screen and (max-width: 900px) {
@@ -58,7 +59,7 @@ const OneThird = styled.div`
 `;
 
 const Description = styled.div`
-  font-size: 1.25em;
+  font-size: 1.2em;
   line-height: 1.25em;
   display: flex;
 
@@ -67,9 +68,14 @@ const Description = styled.div`
   }
 `;
 
+const BigText = styled.div`
+  font-size: 2.3rem;
+  line-height: 1.17em;
+`;
+
 const Products = styled.div`
   flex: 1;
-  margin-top: 4em;
+  margin-top: 7em;
   display: flex;
   width: 100%;
 
@@ -124,10 +130,10 @@ const Main: React.FC = () => {
               </p>
 
               <p>
-                <strong>
+                <BigText>
                   Juneteenth asks us to consider the promises of freedom not yet
                   fully realized.
-                </strong>
+                </BigText>
               </p>
             </TwoThirds>
             <OneThird>
@@ -174,7 +180,9 @@ const Main: React.FC = () => {
                 separate volumes.
               </ProductP>
               <Product>
-                <img src="https://d2w9rnfcy7mm78.cloudfront.net/7693658/original_ddf3923c0b6524c57eb37ca1fcd40e66.png?1592350125?bc=0" />
+                <ChannelThumb id="chess-camp-vol-1" />
+                <ChannelThumb id="arena-influences" />
+                <ChannelThumb id="arena-influences" />
               </Product>
             </OneThird>
           </Products>

@@ -13,7 +13,8 @@ body {
 a,
 a:active,
 a:visited {
-  color: #00f;
+  color: #008a61;
+  text-decoration: none;
 }
 
 body,
