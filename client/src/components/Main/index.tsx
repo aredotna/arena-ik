@@ -184,7 +184,7 @@ const Main: React.FC = () => {
               <Product>
                 <ChannelThumb id="chess-camp-vol-1" />
                 <ChannelThumb id="chess-camp-vol-2" />
-                <ChannelThumb id="chess-camp-vol-3" />
+                <ChannelThumb id="chess-camp-vol-3" direction="DESC" />
                 <ChannelThumb id="chess-camp-vol-4" />
               </Product>
             </OneThird>

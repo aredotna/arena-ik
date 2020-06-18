@@ -85,11 +85,11 @@ const BlockContent = styled.div`
 `;
 
 const CHANNEL_QUERY = gql`
-  query ChannelThumbQuery($id: ID!) {
+  query ChannelThumbQuery($id: ID!, $direction: Directions) {
     channel(id: $id) {
       href(absolute: true)
       title
-      blokks(per: 9) {
+      blokks(per: 9, sort_by: POSITION, direction: $direction) {
         __typename
         ... on Model {
           id
@@ -120,11 +120,15 @@ const CHANNEL_QUERY = gql`
 
 interface ChannelThumbProps {
   id: number | string;
+  direction?: "ASC" | "DESC";
 }
 
-export const ChannelThumb: React.FC<ChannelThumbProps> = ({ id }) => {
+export const ChannelThumb: React.FC<ChannelThumbProps> = ({
+  id,
+  direction = "ASC",
+}) => {
   const { loading, error, data } = useQuery(CHANNEL_QUERY, {
-    variables: { id },
+    variables: { id, direction },
   });
 
   if (loading || error || !data) {
