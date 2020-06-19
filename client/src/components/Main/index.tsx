@@ -210,8 +210,9 @@ const Main: React.FC = () => {
           <Products>
             <OneThird>
               <ProductP>
-                Twelve vintage shirts with custom embroidery are for sale. Each
-                shirt comes with a wooden chess USB drive, containing an{" "}
+                Twelve single-edition vintage shirts with custom embroidery are
+                for sale. Each shirt comes with a wooden chess USB drive,
+                containing an{" "}
                 <a href="https://www.are.na/chess-camp-by-internal-knowledge-are-na">
                   archive
                 </a>{" "}
