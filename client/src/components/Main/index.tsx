@@ -259,12 +259,10 @@ const Main: React.FC = () => {
                 </a>{" "}
                 are also available here for free, in four separate volumes.
               </ProductP>
-              <Product>
-                <ChannelThumb id="chess-camp-vol-1" />
-                <ChannelThumb id="chess-camp-vol-2" />
-                <ChannelThumb id="chess-camp-vol-3" direction="DESC" />
-                <ChannelThumb id="chess-camp-vol-4" />
-              </Product>
+              <ChannelThumb id="chess-camp-vol-1" />
+              <ChannelThumb id="chess-camp-vol-2" />
+              <ChannelThumb id="chess-camp-vol-3" direction="DESC" />
+              <ChannelThumb id="chess-camp-vol-4" />
             </OneThird>
           </Products>
         </Content>
