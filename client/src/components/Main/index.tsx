@@ -126,7 +126,7 @@ const Product = styled.a<{ soldOut?: boolean }>`
   }}
 `;
 
-const PreorderProduct = styled(Product)`
+const PreorderProduct = styled(Product as any)`
   img:last-child {
     display: none;
   }
