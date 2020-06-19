@@ -212,7 +212,7 @@ const Main: React.FC = () => {
               <ProductP>
                 Twelve vintage shirts with custom embroidery are for sale. Each
                 shirt comes with a wooden chess USB drive, containing an{" "}
-                <a href="https://www.are.na/internal-knowledge-are-na">
+                <a href="https://www.are.na/chess-camp-by-internal-knowledge-are-na">
                   archive
                 </a>{" "}
                 of resources, ephemera, videos, images, links and essays.
@@ -254,7 +254,7 @@ const Main: React.FC = () => {
             <OneThird>
               <ProductP>
                 These{" "}
-                <a href="https://www.are.na/internal-knowledge-are-na">
+                <a href="https://www.are.na/chess-camp-by-internal-knowledge-are-na">
                   archives
                 </a>{" "}
                 are also available here for free, in four separate volumes.
