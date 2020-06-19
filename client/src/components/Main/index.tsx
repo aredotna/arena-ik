@@ -126,6 +126,20 @@ const Product = styled.a<{ soldOut?: boolean }>`
   }}
 `;
 
+const PreorderProduct = styled(Product)`
+  img:last-child {
+    display: none;
+  }
+
+  &:hover img:first-child {
+    display: none;
+  }
+
+  &:hover img:last-child {
+    display: block;
+  }
+`;
+
 const Main: React.FC = () => {
   const [{ data, loading, error }] = useAxios("/api/vintage-shirts");
 
@@ -135,6 +149,17 @@ const Main: React.FC = () => {
     data.products &&
     (data.products.edges as Array<any>).length > 0 &&
     (data.products.edges as Array<any>);
+
+  const [
+    { data: shirtData, loading: shirtLoading, error: shirtError },
+  ] = useAxios("/api/preorder-shirt");
+
+  const shirtProducts =
+    !shirtLoading &&
+    !shirtError &&
+    shirtData.products &&
+    (shirtData.products.edges as Array<any>).length > 0 &&
+    (shirtData.products.edges as Array<any>);
 
   return (
     <ApolloProvider client={client}>
@@ -212,6 +237,19 @@ const Main: React.FC = () => {
                 silkscreened commemorative t-shirt is also available for
                 pre-order.
               </ProductP>
+              {shirtProducts &&
+                shirtProducts.map((product: any) => {
+                  const imgOne =
+                    product.node.images.edges[0].node.transformedSrc;
+                  const imgTwo =
+                    product.node.images.edges[1].node.transformedSrc;
+                  return (
+                    <PreorderProduct href={product.node.onlineStoreUrl}>
+                      <img src={imgOne} />
+                      <img src={imgTwo} />
+                    </PreorderProduct>
+                  );
+                })}
             </OneThird>
             <OneThird>
               <ProductP>

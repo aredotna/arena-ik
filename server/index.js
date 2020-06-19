@@ -9,6 +9,7 @@ const cors = require("cors");
 const enforce = require("express-sslify");
 
 const GET_VINTAGE_SHIRTS = require("./queries/vintageShirts");
+const GET_PREORDER_SHIRT = require("./queries/preorderShirt");
 
 const app = express();
 
@@ -55,6 +56,25 @@ app.get("/api/vintage-shirts", (req, res) => {
     },
     data: {
       query: print(GET_VINTAGE_SHIRTS),
+    },
+  })
+    .then((result) => {
+      res.json(result.data.data);
+    })
+    .catch((err) => {
+      res.send(req.body);
+    });
+});
+
+app.get("/api/preorder-shirt", (req, res) => {
+  axios({
+    url: "https://aredotna.myshopify.com/admin/api/2020-04/graphql.json",
+    method: "post",
+    headers: {
+      "X-Shopify-Access-Token": X_SHOPIFY_ACCESS_TOKEN,
+    },
+    data: {
+      query: print(GET_PREORDER_SHIRT),
     },
   })
     .then((result) => {
