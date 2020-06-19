@@ -92,10 +92,38 @@ const ProductP = styled.p`
   }
 `;
 
-const Product = styled.div`
+const Product = styled.a<{ soldOut?: boolean }>`
+  display: block;
+  position: relative;
+
   img {
     max-width: 100%;
   }
+
+  div {
+    display: none;
+  }
+
+  ${(props) => {
+    if (props.soldOut) {
+      return `
+        &:hover div {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: rgba(0,0,0,0.1);
+          color: white;
+          font-size: 22px;
+          font-weight: bold;
+        }
+      `;
+    }
+  }}
 `;
 
 const Main: React.FC = () => {
@@ -158,14 +186,22 @@ const Main: React.FC = () => {
             <OneThird>
               <ProductP>
                 Twelve vintage shirts with custom embroidery are for sale. Each
-                shirt comes with a wooden chess USB drive, containing resources,
-                ephemera, videos, images, links and essays.
+                shirt comes with a wooden chess USB drive, containing an{" "}
+                <a href="https://www.are.na/internal-knowledge-are-na">
+                  archive
+                </a>{" "}
+                of resources, ephemera, videos, images, links and essays.
               </ProductP>
               {products &&
                 products.map((product: any) => {
+                  const soldOut = product.node.totalInventory < 1;
                   return (
-                    <Product>
+                    <Product
+                      soldOut={soldOut}
+                      href={product.node.onlineStoreUrl}
+                    >
                       <img src={product.node.featuredImage.transformedSrc} />
+                      <div>Sold Out</div>
                     </Product>
                   );
                 })}
@@ -173,13 +209,17 @@ const Main: React.FC = () => {
             <OneThird>
               <ProductP>
                 In addition to the limited edition vintage shirts, a
-                silkscreened commemorative t-shirt is also available.
+                silkscreened commemorative t-shirt is also available for
+                pre-order.
               </ProductP>
             </OneThird>
             <OneThird>
               <ProductP>
-                These archives are also available on this page for free, in four
-                separate volumes.
+                These{" "}
+                <a href="https://www.are.na/internal-knowledge-are-na">
+                  archives
+                </a>{" "}
+                are also available here for free, in four separate volumes.
               </ProductP>
               <Product>
                 <ChannelThumb id="chess-camp-vol-1" />

@@ -2,7 +2,6 @@ import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "styled-components";
-import chunk from "lodash/chunk";
 
 const Container = styled.div`
   margin-bottom: 5em;
@@ -142,7 +141,7 @@ export const ChannelThumb: React.FC<ChannelThumbProps> = ({
 
   return (
     <Container>
-      <a href={channel.href} target="_blank">
+      <a href={channel.href} target="_blank" rel="noopener noreferrer">
         <Title>{channel.title}</Title>
         <Blocks>
           {(blokks as Array<any>).map((block) => {
