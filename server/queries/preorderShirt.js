@@ -5,7 +5,7 @@ const GET_SHIRTS = gql`
     products(
       first: 12
       reverse: false
-      savedSearchId: "gid://shopify/SavedSearch/1489445486743"
+      savedSearchId: "gid://shopify/SavedSearch/1490000674967"
     ) {
       edges {
         node {

@@ -154,6 +154,8 @@ const Main: React.FC = () => {
     { data: shirtData, loading: shirtLoading, error: shirtError },
   ] = useAxios("/api/preorder-shirt");
 
+  console.log({ shirtData });
+
   const shirtProducts =
     !shirtLoading &&
     !shirtError &&
@@ -240,6 +242,7 @@ const Main: React.FC = () => {
               </ProductP>
               {shirtProducts &&
                 shirtProducts.map((product: any) => {
+                  console.log("shirtProducts", shirtProducts);
                   const imgOne =
                     product.node.images.edges[0].node.transformedSrc;
                   const imgTwo =
